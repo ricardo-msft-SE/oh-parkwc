@@ -75,51 +75,7 @@ The Division holds **over 2 million customer records** accumulated across multip
 
 ### Architecture (UC1)
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                         Data Sources                                 │
-│  Legacy DB (SQL Server)  |  CSV Exports  |  Flat Files  |  APIs      │
-└─────────────────┬────────────────────────────────────────────────────┘
-                  │ Azure Data Factory (ELT)
-                  ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│               Azure Data Lake Storage Gen2 (Raw Zone)                │
-└─────────────────┬────────────────────────────────────────────────────┘
-                  │ Azure Databricks / Synapse Pipelines
-                  ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                  Bronze → Silver → Gold Data Zones                   │
-│  Bronze: Raw ingested  │  Silver: Normalized  │  Gold: Master Records│
-└─────────────────┬────────────────────────────────────────────────────┘
-                  │
-          ┌───────┴───────────────────────────────────┐
-          │      AI Foundry — Data Merge Project       │
-          │                                            │
-          │  ┌──────────────────────────────────────┐  │
-          │  │  Azure AI Language (NER, Text Match) │  │
-          │  │  GPT-4o (Azure OpenAI) — Ambiguous   │  │
-          │  │  Record Review & Merge Reasoning     │  │
-          │  │  Prompt Flow — Orchestration         │  │
-          │  └──────────────────────────────────────┘  │
-          │                                            │
-          │  ┌──────────────────────────────────────┐  │
-          │  │  Probabilistic Matching Engine       │  │
-          │  │  (Fuzzy name, DOB, address scoring)  │  │
-          │  └──────────────────────────────────────┘  │
-          └───────┬───────────────────────────────────┘
-                  │ Merge Decisions + Audit Log
-                  ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│              Azure SQL / Cosmos DB — Customer Master                 │
-│              (Golden Record Store + Merge History)                   │
-└─────────────────┬────────────────────────────────────────────────────┘
-                  │
-                  ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│  Power BI Dashboard — Merge Analytics & Data Quality Reporting       │
-│  Human Review Queue — Power Apps (Exception Handling)               │
-└──────────────────────────────────────────────────────────────────────┘
-```
+![UC1 Architecture](uc1.png)
 
 ---
 
