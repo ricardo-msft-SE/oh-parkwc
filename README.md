@@ -200,57 +200,7 @@ Ohio's state parks system encompasses **74 parks** across the state, each with u
 
 ### Architecture (UC2)
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                       User Channels                                 │
-│   ODNR Website (React)  |  Mobile App  |  Voice (Teams / Phone)     │
-└─────────────────┬───────────────────────────────────────────────────┘
-                  │ HTTPS / REST
-                  ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│          Azure API Management — API Gateway                         │
-│  (Rate limiting, Auth tokens, Logging, CORS)                        │
-└─────────────────┬───────────────────────────────────────────────────┘
-                  │
-                  ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│        Azure AI Foundry — Parks Assistant Project                   │
-│                                                                     │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │              Foundry Agent (Orchestrator)                    │   │
-│  │  - System Prompt: ODNR parks domain expert persona          │   │
-│  │  - Tool: Azure AI Search (RAG over park knowledge base)     │   │
-│  │  - Tool: Bing Grounding (live weather / events)             │   │
-│  │  - Tool: Azure Maps (location, directions)                  │   │
-│  │  - Fallback: Escalation prompt for staff handoff            │   │
-│  └───────────────────────┬─────────────────────────────────────┘   │
-│                          │                                          │
-│  ┌───────────────────────▼─────────────────────────────────────┐   │
-│  │    Azure OpenAI (GPT-4o) — Response Generation              │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-└─────────────────┬───────────────────────────────────────────────────┘
-                  │
-          ┌───────┴───────────────────────┐
-          │                               │
-          ▼                               ▼
-┌─────────────────────┐         ┌─────────────────────────────┐
-│  Azure AI Search    │         │  Azure Cosmos DB            │
-│  (Vector + Keyword) │         │  (Session history,          │
-│  Park Knowledge Base│         │   User interaction logs)    │
-└─────────────────────┘         └─────────────────────────────┘
-          ▲
-          │ Indexing Pipeline
-          │
-┌─────────────────────────────────────────────────────────────────────┐
-│                  Park Content Sources                               │
-│  ODNR Park Records (PDF, Word, HTML)  |  Accessibility Docs        │
-│  Park Amenities DB  |  Trail Maps  |  Event Calendars              │
-└─────────────────────────────────────────────────────────────────────┘
-                  │
-                  │ Azure Document Intelligence + AI Foundry Indexing
-                  ▼
-          Chunked + Embedded Vectors → Azure AI Search Index
-```
+![UC2 Architecture](uc2.png)
 
 ---
 
