@@ -72,62 +72,8 @@ High-resolution aerial and satellite imagery is increasingly available at scale,
 
 ### Architecture (UC1)
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                     Aerial Imagery Sources                           │
-│  USGS National Map  |  Ohio Statewide Imagery Program  |  Third-Party│
-│  Drone Captures  |  Historic Aerial Photo Archives                   │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Batch ingestion via ADF / manual upload
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Azure Data Lake Storage Gen2 — Raw Imagery Zone             │
-│         (Organized by county, acquisition date, resolution)          │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Azure AI Foundry batch inference pipeline
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Azure AI Vision — Custom Model (Well Feature Detection)      │
-│                                                                      │
-│  Training Data: Labeled aerial tiles (known well locations,          │
-│  confirmed orphaned well sites, negative examples)                   │
-│                                                                      │
-│  Detection targets:                                                  │
-│  • Well casing pads and access roads                                 │
-│  • Tank batteries and earthen berms                                  │
-│  • Disturbed vegetation consistent with historic well sites          │
-│                                                                      │
-│  Output: Bounding boxes + confidence scores per tile                 │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Detection results (GeoJSON + confidence)
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Azure SQL / Cosmos DB — Detection Results Store              │
-│         (Coordinates, confidence, imagery metadata, status)          │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │
-          ┌────────────┴─────────────────────┐
-          │                                  │
-          ▼                                  ▼
-┌───────────────────────────┐    ┌────────────────────────────────────┐
-│  Power BI — Detection     │    │  Copilot Studio — Field Team Agent │
-│  Dashboard & Map          │    │  (Query detections, generate        │
-│  (County heat maps,       │    │  field inspection summaries,        │
-│  confidence filters,      │    │  assign site visits)               │
-│  status tracking)         │    └────────────────────────────────────┘
-└───────────────────────────┘
-          │
-          ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│  Field Verification Workflow (Power Automate)                        │
-│  • High-confidence detections → auto-queue for field inspection      │
-│  • M365 Copilot: generate field briefing summary per site            │
-│  • Staff confirms, dismisses, or escalates each flagged location     │
-│  • Verified sites entered into Division well database                │
-└──────────────────────────────────────────────────────────────────────┘
-```
+![UC1 Architecture](oilgas1.png)
 
----
 
 ### Implementation Plan (UC1)
 
@@ -215,63 +161,8 @@ Digitizing and indexing this archive with AI-powered document intelligence will 
 
 ### Architecture (UC2)
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                      Source Document Formats                         │
-│  Scanned PDFs  |  Microfiche (digitized TIFF)  |  Paper Scans       │
-│  Legacy Microfilm  |  Historic Well Log Binders                     │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Batch upload / scanner integration
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Azure Data Lake Storage Gen2 — Raw Document Zone            │
-│         (Organized by document type, year, well ID)                  │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Power Automate: on file arrival trigger
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Azure AI Document Intelligence — Extraction Pipeline         │
-│                                                                      │
-│  1. OCR: Convert scanned images to machine-readable text            │
-│  2. Custom extraction model: identify and extract metadata fields    │
-│     • Well ID / API number      • Operator name                     │
-│     • County / Township / Range • Drilling date                     │
-│     • Formation / depth         • Production history                │
-│     • Permit number             • Inspector signatures              │
-│  3. Confidence scoring: flag low-confidence fields for staff review  │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Structured JSON extraction results
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│         Power Automate — Routing & Review Flow                       │
-│                                                                      │
-│  • High-confidence fields → auto-populate Azure SQL / Dataverse     │
-│  • Low-confidence fields → staff review queue (Power App)            │
-│  • M365 Copilot: generate plain-language document summary           │
-│  • Index document in Azure AI Search for full-text retrieval        │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │
-          ┌────────────┴──────────────────────┐
-          │                                   │
-          ▼                                   ▼
-┌────────────────────────────┐   ┌────────────────────────────────────┐
-│  Azure SQL Database        │   │  Azure AI Search                   │
-│  (Structured metadata:     │   │  (Full-text + semantic search      │
-│  well ID, operator, dates, │   │  over extracted document content)  │
-│  formations, permit no.)   │   └────────────────────────────────────┘
-└────────────────────────────┘              │
-                                            ▼
-                               ┌────────────────────────────────────┐
-                               │  Copilot Studio — Records Research │
-                               │  Agent                             │
-                               │  (Natural language queries over    │
-                               │  historic archive: "show me all    │
-                               │  well logs for Muskingum County    │
-                               │  drilled before 1960")             │
-                               └────────────────────────────────────┘
-```
+![UC1 Architecture](oilgas2.png)
 
----
 
 ### Implementation Plan (UC2)
 
