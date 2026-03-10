@@ -80,53 +80,8 @@ Division of Wildlife staff perform numerous high-frequency, rules-based tasks th
 
 ### Architecture (UC1)
 
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                    Permit Submission Channel                         │
-│         Ohio ePermitting Portal / Email / SharePoint Upload          │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Trigger: new submission event
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│               Power Automate — Permit Routing Flow                   │
-│                                                                      │
-│  1. Extract applicant info from submission                           │
-│  2. Query Dataverse: prior year permit history                       │
-│  3. Apply rules engine: eligibility check (compliance, fees, type)   │
-│  4. Route to AI Language for field validation & anomaly detection    │
-│  5. Generate draft approval/denial memo (M365 Copilot)               │
-│  6. Queue for human review in Model-Driven Power App                 │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Human reviewer: approve / modify / reject
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│              Microsoft Dataverse — Permit Master                     │
-│         (Applicant history, decisions, audit trail)                  │
-└──────────────────────────────────────────────────────────────────────┘
+![UC1 Architecture](uc1permit.png)
 
-┌──────────────────────────────────────────────────────────────────────┐
-│                   Fish Survey Data Pipeline                          │
-│         Raw Data Files (CSV/Excel) → SharePoint / ADLS               │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │ Power Automate: on file upload trigger
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│               Azure AI Foundry — Survey Analysis Flow                │
-│                                                                      │
-│  1. Data validation: schema checks, outlier detection (AI Language)  │
-│  2. Statistical computation: abundance indices, CPUE, size-frequency │
-│     (Azure Functions executing standardized R/Python scripts)        │
-│  3. GPT-4o (Azure OpenAI): generate plain-language narrative summary │
-│     e.g. "Bass population abundances were generally high this season"│
-│  4. Output: structured report + narrative → SharePoint document      │
-└──────────────────────┬───────────────────────────────────────────────┘
-                       │
-                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│  Staff Review via Copilot Studio Agent                               │
-│  (Review summary, request edits, approve for publication)            │
-└──────────────────────────────────────────────────────────────────────┘
-```
 
 ---
 
