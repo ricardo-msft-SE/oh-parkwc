@@ -71,35 +71,7 @@ As contract volumes grow and staff bandwidth remains constrained, this approach 
 
 ### Architecture (UC1)
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│              UC1 — Contract Processing Automation Pipeline          │
-│                                                                     │
-│  Contract PDFs (uploads from staff)                                 │
-│          │                                                          │
-│          ▼                                                          │
-│  ┌───────────────────┐     ┌──────────────────────────────────┐    │
-│  │  ADLS Gen2        │────▶│  Azure AI Document Intelligence  │    │
-│  │  (Contract        │     │  (Custom/Layout Field Extraction) │    │
-│  │   Archive)        │     └──────────────┬───────────────────┘    │
-│  └───────────────────┘                    │                         │
-│                                           ▼                         │
-│                          ┌────────────────────────────────────┐    │
-│                          │  Azure OpenAI — GPT-4o             │    │
-│                          │  (Memo / Document Auto-Drafting)   │    │
-│                          └────────────────┬───────────────────┘    │
-│                                           │                         │
-│                          ┌────────────────▼──────────────────┐     │
-│                          │  Power Automate                   │     │
-│                          │  (Excel Population + Routing)     │     │
-│                          └────────────────┬──────────────────┘     │
-│                                           │                         │
-│               ┌───────────────────────────▼──────────────────────┐ │
-│               │  M365 Copilot / Copilot Studio Agent             │ │
-│               │  (Final Editing + Staff Review Interface)        │ │
-│               └──────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![Architecture (UC1) - Contract Processing Automation Pipeline](wild.png)
 
 ### Implementation Plan (UC1)
 
