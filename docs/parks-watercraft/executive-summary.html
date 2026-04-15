@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parks &amp; Watercraft - 1-Page Executive Summary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    .summary-text {
+      padding: 1rem 1.25rem 1.2rem;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .summary-list {
+      margin: 0;
+      padding: 0 1.25rem 1.2rem 2.35rem;
+      line-height: 1.55;
+    }
+
+    .cost-line {
+      margin: 0;
+      padding: 1rem 1.25rem 0.4rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">1-Page Exec Summary</p>
+      <h1>Parks &amp; Watercraft AI Initiative</h1>
+      <p class="subhead">Leadership one-pager synthesized from the full implementation brief.</p>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="label">Agency</div>
+          <div class="value">ODNR Parks &amp; Watercraft</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Format</div>
+          <div class="value">One-Page Summary</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Source</div>
+          <div class="value">README Synthesis</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <a class="btn" href="../index.html">Back to all briefs</a>
+      <a class="btn" href="index.html">Open full brief</a>
+      <a class="btn" href="README.md">View source markdown</a>
+    </div>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Executive Summary</h2>
+        <p>Mission impact and expected outcomes.</p>
+      </div>
+      <p id="summary" class="summary-text">Loading summary...</p>
+    </section>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Strategic Use Cases</h2>
+        <p>Top initiative tracks and value focus.</p>
+      </div>
+      <div id="useCases" class="cards" style="padding: 1rem 1.1rem 1.1rem;"></div>
+    </section>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Delivery Snapshot</h2>
+        <p>Roadmap highlights extracted from implementation planning.</p>
+      </div>
+      <ul id="delivery" class="summary-list"></ul>
+    </section>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Bottom-Line Cost</h2>
+        <p>Combined and component-level view from cost estimates.</p>
+      </div>
+      <p id="costLine" class="cost-line">Extracting cost summary...</p>
+      <ul id="costDetail" class="summary-list"></ul>
+    </section>
+
+    <p class="footer">Published on GitHub Pages for executive review.</p>
+  </main>
+
+  <script src="../assets/onepage.js"></script>
+  <script>
+    renderOnePageExecutiveSummary({ markdownPath: "README.md" });
+  </script>
+</body>
+</html>
