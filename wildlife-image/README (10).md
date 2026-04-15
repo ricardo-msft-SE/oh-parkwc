@@ -136,48 +136,7 @@ AI-powered image and video analysis can dramatically reduce this manual review b
 
 ### Architecture (UC2)
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│               UC2 — Wildlife Image & Video Recognition Pipeline     │
-│                                                                     │
-│  Image/Video Sources:                                               │
-│  Trail Cams | Public Submissions | Law Enforcement Cams            │
-│  Aerial Video | Side-Scan Sonar | Fish Otolith Scans               │
-│          │                                                          │
-│          ▼                                                          │
-│  ┌───────────────────┐                                              │
-│  │  Azure Data       │  Batch ingestion pipeline organized          │
-│  │  Factory          │  by source type, date, and location          │
-│  └────────┬──────────┘                                              │
-│           │                                                         │
-│           ▼                                                         │
-│  ┌───────────────────────────────────────────────────────────┐     │
-│  │  ADLS Gen2 — Image/Video Archive                          │     │
-│  └──────┬──────────────────┬─────────────────────────────────┘     │
-│         │                  │                                        │
-│         ▼                  ▼                                        │
-│  ┌─────────────┐    ┌──────────────────────────────────────────┐   │
-│  │  Azure AI   │    │  Azure AI Vision — Image Analysis        │   │
-│  │  Custom     │    │  (Species Tagging + Scene Classification) │   │
-│  │  Vision     │    └──────────────┬───────────────────────────┘   │
-│  │  (False     │                   │                                │
-│  │  Trigger    │    ┌──────────────▼───────────────────────────┐   │
-│  │  Filter)    │    │  Azure AI Video Indexer                  │   │
-│  └──────┬──────┘    │  (Aerial Video + Trail Cam Video)        │   │
-│         │           └──────────────┬───────────────────────────┘   │
-│         └─────────────────┬────────┘                               │
-│                           ▼                                         │
-│                ┌──────────────────────────┐                         │
-│                │  Power Automate          │                         │
-│                │  (Review Routing)        │                         │
-│                └──────────┬───────────────┘                         │
-│                           ▼                                         │
-│                ┌──────────────────────────────────────────────┐    │
-│                │  Power BI — Image Review Dashboard           │    │
-│                │  + M365 Copilot (Research Summary Reports)   │    │
-│                └──────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![Architecture (UC2) - Wildlife Image & Video Recognition Pipeline](wild2.png)
 
 ### Implementation Plan (UC2)
 
