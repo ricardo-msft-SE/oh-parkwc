@@ -3,99 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coastal Management - 1-Page Executive Summary</title>
+  <title>Office of Coastal Management AI Initiative - Executive Review</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/site.css">
-  <style>
-    .summary-text {
-      padding: 1rem 1.25rem 1.2rem;
-      line-height: 1.6;
-      font-size: 0.98rem;
-    }
-
-    .summary-list {
-      margin: 0;
-      padding: 0 1.25rem 1.2rem 2.35rem;
-      line-height: 1.55;
-    }
-
-    .cost-line {
-      margin: 0;
-      padding: 1rem 1.25rem 0.4rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/executive-review.css">
 </head>
 <body>
-  <main class="container">
+  <main class="wrap">
     <section class="hero">
-      <p class="eyebrow">1-Page Exec Summary</p>
-      <h1>Office of Coastal Management AI Initiative</h1>
-      <p class="subhead">Leadership one-pager synthesized from the full implementation brief.</p>
-      <div class="kpis">
-        <div class="kpi">
-          <div class="label">Agency</div>
-          <div class="value">ODNR Coastal Management</div>
+      <p class="eyebrow">Executive Review | April 2026</p>
+      <h1 id="initiativeTitle">Office of Coastal Management AI Initiative</h1>
+      <p class="subhead" id="summaryText">Loading executive summary...</p>
+      <div class="kicker-grid">
+        <div class="kicker">
+          <div class="label">Programs</div>
+          <div class="value" id="programCount">2 Parallel Use Cases</div>
         </div>
-        <div class="kpi">
-          <div class="label">Format</div>
-          <div class="value">One-Page Summary</div>
+        <div class="kicker">
+          <div class="label">Timeline</div>
+          <div class="value" id="timelineLength">Phased Delivery Roadmap</div>
         </div>
-        <div class="kpi">
-          <div class="label">Source</div>
-          <div class="value">README Synthesis</div>
+        <div class="kicker">
+          <div class="label">Target Impact</div>
+          <div class="value" id="impactLine">Major reduction in manual work</div>
         </div>
       </div>
     </section>
 
     <div class="toolbar">
       <a class="btn" href="../index.html">Back to all briefs</a>
-      <a class="btn" href="index.html">Open full brief</a>
-      <a class="btn" href="README.md">View source markdown</a>
+      <a class="btn" href="index.html">Technical Brief</a>
+      <a class="btn" href="README.md">Source markdown</a>
     </div>
 
-    <section class="panel">
-      <div class="head">
-        <h2>Executive Summary</h2>
-        <p>Mission impact and expected outcomes.</p>
+    <section class="section" style="animation-delay: 120ms;">
+      <div class="section-header">
+        <h2>Bottom-Line Cost Summary</h2>
+        <p class="desc">Leadership view of expected operating range based on current assumptions.</p>
       </div>
-      <p id="summary" class="summary-text">Loading summary...</p>
+      <div class="section-body">
+        <div class="cost-banner">
+          <h3 id="costHeadline">Extracting planning range...</h3>
+          <div class="cost-grid" id="costGrid"></div>
+        </div>
+        <table aria-label="Cost scenarios">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Estimated Cost</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="costTableBody"></tbody>
+        </table>
+      </div>
     </section>
 
-    <section class="panel">
-      <div class="head">
-        <h2>Strategic Use Cases</h2>
-        <p>Top initiative tracks and value focus.</p>
+    <section class="section" style="animation-delay: 180ms;">
+      <div class="section-header">
+        <h2>Initiative Snapshot</h2>
+        <p class="desc">What each use case solves and where value is expected.</p>
       </div>
-      <div id="useCases" class="cards" style="padding: 1rem 1.1rem 1.1rem;"></div>
+      <div class="section-body two-col" id="useCases"></div>
     </section>
 
-    <section class="panel">
-      <div class="head">
-        <h2>Delivery Snapshot</h2>
-        <p>Roadmap highlights extracted from implementation planning.</p>
+    <section class="section" style="animation-delay: 240ms;">
+      <div class="section-header">
+        <h2>Delivery Roadmap</h2>
+        <p class="desc">Four-phase execution model with parallel workstreams.</p>
       </div>
-      <ul id="delivery" class="summary-list"></ul>
+      <div class="section-body timeline" id="roadmap"></div>
     </section>
 
-    <section class="panel">
-      <div class="head">
-        <h2>Bottom-Line Cost</h2>
-        <p>Combined and component-level view from cost estimates.</p>
+    <section class="section" style="animation-delay: 300ms;">
+      <div class="section-header">
+        <h2>Shared Platform and Governance</h2>
+        <p class="desc">Common architecture foundation to reduce duplication and improve controls.</p>
       </div>
-      <p id="costLine" class="cost-line">Extracting cost summary...</p>
-      <ul id="costDetail" class="summary-list"></ul>
+      <div class="section-body two-col">
+        <article class="card">
+          <h3>Shared Technical Stack</h3>
+          <ul class="list" id="sharedStack"></ul>
+        </article>
+        <article class="card">
+          <h3>Security and Compliance Controls</h3>
+          <ul class="list" id="securityControls"></ul>
+        </article>
+      </div>
     </section>
 
-    <p class="footer">Published on GitHub Pages for executive review.</p>
+    <p class="footer">
+      Prepared for executive briefing based on the initiative implementation plan.
+      Cost estimates are indicative and should be validated against pilot telemetry and final licensing counts.
+      Agency: ODNR Office of Coastal Management.
+    </p>
   </main>
 
-  <script src="../assets/onepage.js"></script>
+  <script src="../assets/executive-review.js"></script>
   <script>
-    renderOnePageExecutiveSummary({ markdownPath: "README.md" });
+    renderExecutiveReview({ title: "Office of Coastal Management AI Initiative", markdownPath: "README.md" });
   </script>
 </body>
 </html>
