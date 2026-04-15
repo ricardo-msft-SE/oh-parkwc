@@ -269,7 +269,6 @@ h1 {
 
 .card a {
   display: inline-block;
-  margin-top: 0.7rem;
   color: var(--brand);
   font-weight: 700;
   text-decoration: none;
@@ -277,6 +276,26 @@ h1 {
 
 .card a:hover {
   text-decoration: underline;
+}
+
+.card-actions {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.card-link {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.34rem 0.62rem;
+  background: #ffffff;
+  font-size: 0.84rem;
+}
+
+.card-link.primary {
+  background: #e8f7f4;
+  border-color: #b8e7dd;
 }
 
 @media (max-width: 920px) {
