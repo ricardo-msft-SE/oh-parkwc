@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parks & Watercraft - Executive Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">Executive Brief</p>
+      <h1>Parks &amp; Watercraft AI Initiative</h1>
+      <p class="subhead" id="quickTake">Loading summary...</p>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="label">Agency</div>
+          <div class="value">ODNR Parks &amp; Watercraft</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Bottom-Line Cost</div>
+          <div class="value" id="costLine">Extracting...</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Source</div>
+          <div class="value">README Conversion</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <a class="btn" href="../index.html">Back to all briefs</a>
+      <a class="btn" href="README.md">View source markdown</a>
+    </div>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Full Executive Content</h2>
+        <p>Rendered directly from the repository README with executive formatting.</p>
+      </div>
+      <article id="content"></article>
+    </section>
+
+    <p class="footer">Published via GitHub Pages deployment workflow.</p>
+  </main>
+  <script src="../assets/render.js"></script>
+  <script>
+    renderExecutivePage({ markdownPath: "README.md" });
+  </script>
+</body>
+</html>
