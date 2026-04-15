@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ODNR Division of Wildlife AI Initiative - Executive Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7f6;
+      --surface: #ffffff;
+      --ink: #142025;
+      --muted: #5e6d75;
+      --brand: #0f766e;
+      --brand-soft: #d8f3ef;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --line: #d6e2e0;
+      --shadow: 0 14px 30px rgba(20, 32, 37, 0.08);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 500px at 90% -5%, rgba(15, 118, 110, 0.17), transparent),
+        radial-gradient(900px 400px at -10% 10%, rgba(245, 158, 11, 0.13), transparent),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 2.4rem));
+      margin: 1.5rem auto 3.2rem;
+    }
+
+    .hero {
+      background: linear-gradient(130deg, #0f766e, #14532d);
+      color: #ecfffb;
+      border-radius: var(--radius-lg);
+      padding: 1.7rem 1.8rem 1.8rem;
+      box-shadow: var(--shadow);
+      animation: slideIn 700ms ease;
+    }
+
+    .eyebrow {
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      font-size: 0.77rem;
+      font-weight: 700;
+      opacity: 0.86;
+      margin: 0 0 0.45rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
+      font-size: clamp(1.35rem, 1rem + 2.2vw, 2.15rem);
+      line-height: 1.2;
+    }
+
+    .subhead {
+      margin: 0.9rem 0 0;
+      color: #ddfff7;
+      max-width: 900px;
+      font-size: 1.02rem;
+    }
+
+    .kicker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .kicker {
+      background: rgba(236, 255, 251, 0.12);
+      border: 1px solid rgba(236, 255, 251, 0.28);
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      backdrop-filter: blur(2px);
+    }
+
+    .kicker .label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: #c8ffef;
+      margin-bottom: 0.2rem;
+    }
+
+    .kicker .value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .section {
+      margin-top: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: fadeInUp 800ms ease both;
+    }
+
+    .section-header {
+      padding: 1rem 1.2rem 0.55rem;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff 0%, #f9fcfb 100%);
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
+      font-size: 1.18rem;
+      color: #0f172a;
+    }
+
+    .section .desc {
+      margin: 0.28rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .section-body {
+      padding: 1rem 1.2rem 1.2rem;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 0.95rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 0.95rem;
+      background: #ffffff;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.03rem;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--brand-soft);
+      color: #0f766e;
+    }
+
+    .list {
+      margin: 0.65rem 0 0;
+      padding-left: 1.1rem;
+      color: #1f2937;
+    }
+
+    .list li {
+      margin: 0.3rem 0;
+    }
+
+    .arch-img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      margin-top: 0.7rem;
+      display: block;
+    }
+
+    .cost-banner {
+      border: 1px solid #f3d18c;
+      background: linear-gradient(135deg, #fff7e0, #ffefc4);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .cost-banner h3 {
+      margin: 0;
+      font-family: "Space Grotesk", "Manrope", sans-serif;
+      font-size: 1.05rem;
+      color: #854d0e;
+    }
+
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.65rem;
+    }
+
+    .cost-box {
+      border: 1px solid #efcf8f;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 0.7rem;
+    }
+
+    .cost-box .key {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9a6c11;
+      font-weight: 700;
+    }
+
+    .cost-box .amt {
+      margin-top: 0.2rem;
+      font-weight: 800;
+      color: #5f3b09;
+      font-size: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 0.93rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.62rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      background: #ecf9f6;
+      color: #0f766e;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.72rem;
+    }
+
+    .phase {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.7rem;
+      background: #fcfffe;
+    }
+
+    .phase .wk {
+      display: inline-block;
+      font-size: 0.73rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #0f766e;
+      background: #def7f2;
+      border-radius: 999px;
+      padding: 0.18rem 0.48rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .phase h4 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .phase p {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .kicker-grid,
+      .two-col,
+      .cost-grid,
+      .timeline {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        width: calc(100% - 1.1rem);
+        margin: 0.8rem auto 2.2rem;
+      }
+
+      .hero {
+        padding: 1.1rem;
+      }
+
+      .kicker-grid,
+      .two-col,
+      .cost-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header,
+      .section-body {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Executive Review | April 2026</p>
+      <h1>ODNR Division of Wildlife AI Initiative</h1>
+      <p class="subhead">
+        Two-pronged AI modernization plan to automate contract processing and scale wildlife image/video triage,
+        built on Azure AI Foundry and Microsoft Power Platform.
+      </p>
+      <div class="kicker-grid">
+        <div class="kicker">
+          <div class="label">Programs</div>
+          <div class="value">2 Parallel Use Cases</div>
+        </div>
+        <div class="kicker">
+          <div class="label">Timeline</div>
+          <div class="value">20-Week Delivery Roadmap</div>
+        </div>
+        <div class="kicker">
+          <div class="label">Target Impact</div>
+          <div class="value">Major Reduction in Manual Work</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="animation-delay: 120ms;">
+      <div class="section-header">
+        <h2>Bottom-Line Cost Summary</h2>
+        <p class="desc">Leadership view of expected operating range based on current assumptions.</p>
+      </div>
+      <div class="section-body">
+        <div class="cost-banner">
+          <h3>Recommended planning range: $680-$2,545 per month post-launch ($8,160-$30,540 annually)</h3>
+          <div class="cost-grid">
+            <div class="cost-box">
+              <div class="key">Build Period</div>
+              <div class="amt">$555-$1,545/mo</div>
+            </div>
+            <div class="cost-box">
+              <div class="key">UC1 Steady State</div>
+              <div class="amt">$297-$660/mo</div>
+            </div>
+            <div class="cost-box">
+              <div class="key">UC2 Steady State</div>
+              <div class="amt">$383-$1,885/mo</div>
+            </div>
+            <div class="cost-box">
+              <div class="key">Combined Steady State</div>
+              <div class="amt">$680-$2,545/mo</div>
+            </div>
+          </div>
+        </div>
+        <table aria-label="Cost scenarios">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Estimated Cost</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Build period (Months 1-5)</td>
+              <td>$555-$1,545/month</td>
+              <td>Both use cases running in parallel during design, training, and rollout.</td>
+            </tr>
+            <tr>
+              <td>Post-launch steady state</td>
+              <td>$680-$2,545/month</td>
+              <td>Primary variability driven by UC2 image/video volume and review throughput.</td>
+            </tr>
+            <tr>
+              <td>Annualized steady state</td>
+              <td>$8,160-$30,540/year</td>
+              <td>Validate with actual trigger rates and licensing counts once pilot baselines are captured.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" style="animation-delay: 180ms;">
+      <div class="section-header">
+        <h2>Initiative Snapshot</h2>
+        <p class="desc">What each use case solves and where value is expected.</p>
+      </div>
+      <div class="section-body two-col">
+        <article class="card">
+          <h3>UC1: Contract Processing Automation</h3>
+          <span class="pill">PDF -> Excel -> Memo</span>
+          <ul class="list">
+            <li><strong>Current pain:</strong> Manual extraction and copy/paste steps across PDF, Excel, and memo drafting.</li>
+            <li><strong>AI pattern:</strong> Document Intelligence extraction, GPT-4o memo drafting, Power Automate routing.</li>
+            <li><strong>Expected outcome:</strong> Significant time reduction and improved consistency for contract documentation.</li>
+            <li><strong>Primary KPI targets:</strong> >= 70% time reduction, >= 90% extraction accuracy, memo quality >= 4/5.</li>
+          </ul>
+          <img class="arch-img" src="wild.png" alt="UC1 architecture diagram">
+        </article>
+
+        <article class="card">
+          <h3>UC2: Wildlife Image and Video Recognition</h3>
+          <span class="pill">Triage + Species Tagging + Routing</span>
+          <ul class="list">
+            <li><strong>Current pain:</strong> Very high volume visual review with many non-wildlife false triggers.</li>
+            <li><strong>AI pattern:</strong> Custom Vision filtering, AI Vision tagging, Video Indexer event extraction.</li>
+            <li><strong>Expected outcome:</strong> Faster wildlife event detection and major reduction in manual triage.</li>
+            <li><strong>Primary KPI targets:</strong> false-trigger F1 >= 0.88, >= 60% review-time reduction, precision >= 85%.</li>
+          </ul>
+          <img class="arch-img" src="wild2.png" alt="UC2 architecture diagram">
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="animation-delay: 240ms;">
+      <div class="section-header">
+        <h2>Delivery Roadmap</h2>
+        <p class="desc">Four-phase execution model with UC1 and UC2 progressing in parallel.</p>
+      </div>
+      <div class="section-body timeline">
+        <article class="phase">
+          <span class="wk">Weeks 1-4</span>
+          <h4>Phase 1 - Scope and Baselines</h4>
+          <p>Confirm pilot boundaries, baseline metrics, data inventory, and provision core Azure resources.</p>
+        </article>
+        <article class="phase">
+          <span class="wk">Weeks 4-9</span>
+          <h4>Phase 2 - Data and Model Preparation</h4>
+          <p>Label contract/image datasets, tune extraction/classification quality, and finalize pipeline designs.</p>
+        </article>
+        <article class="phase">
+          <span class="wk">Weeks 8-16</span>
+          <h4>Phase 3 - Build and Integrate</h4>
+          <p>Deploy production pipelines, automation flows, dashboards, and Copilot-assisted review workflows.</p>
+        </article>
+        <article class="phase">
+          <span class="wk">Weeks 14-20</span>
+          <h4>Phase 4 - Validate and Scale</h4>
+          <p>Conduct UAT, measure KPI achievement, refine prompts/models, and prepare expansion plans.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="animation-delay: 300ms;">
+      <div class="section-header">
+        <h2>Shared Platform and Governance</h2>
+        <p class="desc">Common architecture foundation to reduce duplication and improve controls.</p>
+      </div>
+      <div class="section-body two-col">
+        <article class="card">
+          <h3>Shared Technical Stack</h3>
+          <ul class="list">
+            <li>Azure AI Foundry hub with separate UC1 and UC2 projects.</li>
+            <li>ADLS Gen2 as centralized archive for contracts, images, and videos.</li>
+            <li>Azure Data Factory and Power Automate for ingestion and orchestration.</li>
+            <li>Power BI, Azure Monitor, and App Insights for visibility and performance management.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Security and Compliance Controls</h3>
+          <ul class="list">
+            <li>Microsoft Entra ID RBAC and segmented access for research vs. law-enforcement data.</li>
+            <li>Encryption at rest and in transit with secure secrets in Azure Key Vault.</li>
+            <li>Purview-supported lineage, retention, and governance controls.</li>
+            <li>Audit logging and human-review checkpoints for sensitive classifications.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer">
+      Prepared for executive briefing based on the Division of Wildlife AI Initiative plan (April 2026).
+      Cost estimates are indicative and should be validated against pilot telemetry and final licensing counts.
+    </p>
+  </main>
+</body>
+</html>
