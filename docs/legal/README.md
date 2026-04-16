@@ -252,6 +252,11 @@ AI-powered document intelligence and large language model drafting can automate 
 
 Both use cases are deployed under a common Azure AI Foundry Hub within ODNR's Azure subscription. Shared infrastructure reduces cost, simplifies governance, and provides a consistent security and observability posture across both legal AI initiatives.
 
+- Azure AI Foundry Hub with UC1 Contracting and UC2 AG Referral project isolation.
+- ADLS Gen2 data lake, Azure SQL, and Azure OpenAI for document processing and analysis.
+- Azure Key Vault for secrets management; Microsoft Purview for legal document governance and lineage.
+- Azure Monitor, App Insights, and Microsoft Entra ID RBAC across all shared services.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
 │         ODNR Office of Legal & Legislative Services — Shared Platform    │

@@ -244,6 +244,11 @@ The scale of this problem is significant: multiple high-volume form types are pr
 
 Both use cases are delivered within a single **ODNR Power Platform environment** connected to the existing Microsoft 365 tenant, with Azure AI Services accessible via managed connectors. All data remains within Ohio's Microsoft 365 sovereign boundary.
 
+- Power Platform environment with Dataverse, Power Automate, Power Apps, and Copilot Studio.
+- SharePoint Online for document libraries and intake queues within Ohio's M365 sovereign boundary.
+- Azure AI Services (Azure OpenAI, AI Language, Document Intelligence) via managed connectors.
+- Azure Functions, Azure Key Vault, Azure Monitor, and Microsoft Entra ID RBAC.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │               ODNR Microsoft 365 Tenant (Shared)                     │

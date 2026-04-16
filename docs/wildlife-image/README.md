@@ -195,6 +195,11 @@ AI-powered image and video analysis can dramatically reduce this manual review b
 
 Both use cases are deployed under a common Azure AI Foundry Hub within ODNR's Azure subscription. Shared infrastructure — including the data lake, ingestion pipeline, Key Vault, and observability stack — reduces cost, simplifies governance, and provides a consistent security posture across both Division of Wildlife AI initiatives.
 
+- Azure AI Foundry Hub with separate UC1 Contract Processing and UC2 Image & Video Recognition projects.
+- ADLS Gen2 centralized archive for contracts, images, and videos with Azure Data Factory for ingestion.
+- Azure Key Vault for secrets management; Microsoft Purview for wildlife data governance and lineage.
+- Azure Monitor, App Insights, and Microsoft Entra ID RBAC with law-enforcement access segmentation.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
 │              ODNR Division of Wildlife — Shared Azure Platform           │

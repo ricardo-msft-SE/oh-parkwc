@@ -236,6 +236,11 @@ Digitizing and indexing this archive with AI-powered document intelligence will 
 
 Both use cases share a common Azure AI Foundry hub, data lake, and observability layer. This reduces infrastructure duplication and provides unified governance across both initiatives.
 
+- Azure AI Foundry Hub with UC1 Well Detection and UC2 Historic Records project isolation.
+- Azure Key Vault for secrets management; Microsoft Purview for data catalog, lineage, and PII classification.
+- Azure Monitor and Log Analytics for unified observability; Azure Virtual Network with Private Endpoints.
+- Microsoft Entra ID with managed identities; Azure Policy and Defender for Cloud compliance guardrails.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │                  Shared Platform Services                            │

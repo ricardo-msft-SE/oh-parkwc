@@ -229,6 +229,11 @@ Ohio's state parks system encompasses **74 parks** across the state, each with u
 
 Both use cases are deployed under a single **Azure AI Foundry Hub** with project-level isolation, sharing the following platform components:
 
+- Azure AI Foundry Hub with UC1 Data Merge and UC2 Boater Assistant project isolation.
+- Azure Key Vault for secrets management; Azure Policy and Defender for Cloud for compliance guardrails.
+- Azure Monitor and Log Analytics Workspace for unified operational observability and alerting.
+- Azure Virtual Network with Private Endpoints; Microsoft Entra ID RBAC across all shared services.
+
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    Shared Platform Services                         │
