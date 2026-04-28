@@ -11,51 +11,17 @@ async function renderExecutivePage(config) {
 
     const markdown = await response.text();
     
-    // Custom slugger that generates consistent IDs matching TOC links
-    const customSlugger = {
-      seen: {},
-      slug(text) {
-        const slug = text
-          .toLowerCase()
-          .trim()
-          .replace(/[—–]/g, '--')           // em/en dashes to double hyphen
-          .replace(/&/g, 'and')              // ampersands to 'and'
-          .replace(/[()]/g, ' ')             // remove parentheses (replace with space)
-          .replace(/\//g, '-')               // forward slashes to hyphen
-          .replace(/\s+/g, ' ')              // normalize whitespace
-          .replace(/\s/g, '-')               // spaces to hyphens
-          .replace(/[^\w-]/g, '')            // remove special chars except hyphens
-          .replace(/-+/g, '-')               // collapse multiple hyphens
-          .replace(/^-+|-+$/g, '');          // trim hyphens
-        
-        // Handle duplicates
-        let uniqueSlug = slug;
-        let count = 0;
-        while (this.seen[uniqueSlug]) {
-          count++;
-          uniqueSlug = `${slug}-${count}`;
-        }
-        this.seen[uniqueSlug] = true;
-        return uniqueSlug;
-      }
-    };
-
     const parser = new marked.Marked({
       gfm: true,
       breaks: false,
-      headerIds: true,
-      mangle: false
+      headerIds: true  // Let marked generate IDs first
     });
-
-    // Inject custom slugger into the renderer
-    const originalHeadingRenderer = parser.renderer.heading;
-    parser.renderer.heading = function(token) {
-      const id = customSlugger.slug(token.text);
-      return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>\n`;
-    };
 
     const html = parser.parse(markdown);
     markdownTarget.innerHTML = DOMPurify.sanitize(html);
+    
+    // Post-process: fix IDs to match TOC links
+    fixHeadingIds(markdownTarget);
 
     const quickTake = extractExecutiveSummary(markdown);
     quickTakeEl.textContent = quickTake || "Executive summary is available in the full brief below.";
@@ -67,6 +33,40 @@ async function renderExecutivePage(config) {
     quickTakeEl.textContent = "Unable to load source markdown.";
     costEl.textContent = "Unable to extract cost summary.";
   }
+}
+
+function generateSlug(text) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[—–]/g, '--')           // em/en dashes to double hyphen
+    .replace(/&/g, 'and')              // ampersands to 'and'
+    .replace(/[()]/g, ' ')             // remove parentheses (replace with space)
+    .replace(/\//g, '-')               // forward slashes to hyphen
+    .replace(/\s+/g, ' ')              // normalize whitespace
+    .replace(/\s/g, '-')               // spaces to hyphens
+    .replace(/[^\w-]/g, '')            // remove special chars except hyphens
+    .replace(/-+/g, '-')               // collapse multiple hyphens
+    .replace(/^-+|-+$/g, '');          // trim hyphens
+}
+
+function fixHeadingIds(container) {
+  const seen = {};
+  const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  
+  headings.forEach(heading => {
+    let slug = generateSlug(heading.textContent);
+    
+    // Handle duplicates
+    let uniqueSlug = slug;
+    let count = 0;
+    while (seen[uniqueSlug]) {
+      count++;
+      uniqueSlug = `${slug}-${count}`;
+    }
+    seen[uniqueSlug] = true;
+    heading.id = uniqueSlug;
+  });
 }
 
 function extractExecutiveSummary(markdown) {
