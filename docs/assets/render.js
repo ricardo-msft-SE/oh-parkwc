@@ -10,12 +10,43 @@ async function renderExecutivePage(config) {
     }
 
     const markdown = await response.text();
+    
+    // Custom slug function that handles special characters consistently
+    const customSlugger = {
+      slug(text) {
+        return text
+          .toLowerCase()
+          .trim()
+          // Replace em dashes, en dashes, and hyphens with double hyphens for compound terms
+          .replace(/[—–]/g, '--')
+          // Replace ampersands with word "and"
+          .replace(/&/g, 'and')
+          // Replace parentheses content but keep separation
+          .replace(/[()]/g, ' ')
+          // Replace forward slashes with hyphens
+          .replace(/\//g, '-')
+          // Normalize whitespace to single spaces
+          .replace(/\s+/g, ' ')
+          // Replace spaces with hyphens
+          .replace(/\s/g, '-')
+          // Remove any remaining special characters except hyphens
+          .replace(/[^\w-]/g, '')
+          // Replace multiple consecutive hyphens with single hyphen
+          .replace(/-+/g, '-')
+          // Remove leading/trailing hyphens
+          .replace(/^-+|-+$/g, '');
+      }
+    };
+    
     const parser = new marked.Marked({
       gfm: true,
       breaks: false,
       headerIds: true,
       mangle: false
     });
+    
+    // Set the custom slugger
+    parser.options.slugger = customSlugger;
 
     const html = parser.parse(markdown);
     markdownTarget.innerHTML = DOMPurify.sanitize(html);
