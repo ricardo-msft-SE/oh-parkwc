@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success Metrics & KPIs — Methodology Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/site.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015"></script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    #content a {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(15, 118, 110, 0.3);
+    }
+    
+    #content a:hover {
+      border-bottom-color: var(--brand);
+    }
+
+    #content > h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .toc-link {
+      display: inline-block;
+      margin-left: 0.5rem;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .toc-link:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">Reference Guide</p>
+      <h1>Success Metrics & KPIs — Methodology</h1>
+      <p class="subhead">Detailed explanation of how success metrics are derived, validated, and reported across all Office initiatives.</p>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="label">Scope</div>
+          <div class="value">All Initiatives</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Version</div>
+          <div class="value">April 2026</div>
+        </div>
+        <div class="kpi">
+          <div class="label">Format</div>
+          <div class="value">Reference Guide</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <a class="btn" href="./index.html">Back to all briefs</a>
+      <a class="btn" href="./METRICS-METHODOLOGY.md">View source markdown</a>
+    </div>
+
+    <section class="panel">
+      <div class="head">
+        <h2>Methodology Reference</h2>
+        <p>Understanding how KPIs are calculated, validated, and used across initiatives.</p>
+      </div>
+      <article id="content"></article>
+    </section>
+
+    <p class="footer">Published via GitHub Pages deployment workflow.</p>
+  </main>
+
+  <script>
+    // Custom heading slug generator matching the render.js pattern
+    function generateSlug(text) {
+      return text
+        .toLowerCase()
+        .trim()
+        .replace(/[—–]/g, '--')           // em/en dashes to double hyphen
+        .replace(/&/g, 'and')              // ampersands to 'and'
+        .replace(/[()]/g, ' ')             // remove parentheses (replace with space)
+        .replace(/\//g, '-')               // forward slashes to hyphen
+        .replace(/\s+/g, ' ')              // normalize whitespace
+        .replace(/\s/g, '-')               // spaces to hyphens
+        .replace(/[^\w-]/g, '')            // remove special chars except hyphens
+        .replace(/-+/g, '-')               // collapse multiple hyphens
+        .replace(/^-+|-+$/g, '');          // trim hyphens
+    }
+
+    function fixHeadingIds(container) {
+      const seen = {};
+      const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      
+      headings.forEach(heading => {
+        let slug = generateSlug(heading.textContent);
+        
+        // Handle duplicates
+        let uniqueSlug = slug;
+        let count = 0;
+        while (seen[uniqueSlug]) {
+          count++;
+          uniqueSlug = `${slug}-${count}`;
+        }
+        seen[uniqueSlug] = true;
+        heading.id = uniqueSlug;
+      });
+    }
+
+    async function renderMetodologyPage() {
+      const contentEl = document.getElementById("content");
+
+      try {
+        const response = await fetch('./METRICS-METHODOLOGY.md', { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`Failed to load METRICS-METHODOLOGY.md: ${response.status}`);
+        }
+
+        const markdown = await response.text();
+        
+        const parser = new marked.Marked({
+          gfm: true,
+          breaks: false
+        });
+
+        const html = parser.parse(markdown);
+        const sanitizedHtml = DOMPurify.sanitize(html);
+        
+        contentEl.innerHTML = sanitizedHtml;
+        
+        // Fix heading IDs to match GFM anchor style
+        fixHeadingIds(contentEl);
+
+        // Trigger MathJax to render any math equations
+        if (window.MathJax) {
+          MathJax.contentDocument = document;
+          MathJax.typesetPromise([contentEl]).catch(err => console.log(err));
+        }
+      } catch (error) {
+        contentEl.innerHTML = `<p style="color: var(--accent);">Unable to render this guide. ${error.message}</p>`;
+      }
+    }
+
+    // Render on page load
+    document.addEventListener('DOMContentLoaded', renderMetodologyPage);
+  </script>
+</body>
+</html>

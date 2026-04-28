@@ -314,7 +314,7 @@ UC2       ████  ████████  ██████████
 
 ---
 
-## Success Metrics & KPIs — [Learn More](docs/METRICS-METHODOLOGY.md)
+## Success Metrics & KPIs — [Learn More](docs/metrics-methodology.html#success-metrics-and-kpis)
 
 ### UC1 — Orphaned Well Detection
 

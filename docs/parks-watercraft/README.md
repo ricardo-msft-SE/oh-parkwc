@@ -319,7 +319,7 @@ Rollout                               ████
 
 ---
 
-## Success Metrics & KPIs — [Learn More](../METRICS-METHODOLOGY.md)
+## Success Metrics & KPIs — [Learn More](../metrics-methodology.html#success-metrics-and-kpis)
 
 ### UC1 — Watercraft Customer Data Merge
 
