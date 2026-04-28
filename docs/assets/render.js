@@ -11,40 +11,48 @@ async function renderExecutivePage(config) {
 
     const markdown = await response.text();
     
-    // Create a custom Slugger class with proper slug generation
-    class CustomSlugger extends marked.Slugger {
+    // Custom slugger that generates consistent IDs matching TOC links
+    const customSlugger = {
+      seen: {},
       slug(text) {
-        return text
+        const slug = text
           .toLowerCase()
           .trim()
-          // Replace em dashes, en dashes, and hyphens with double hyphens for compound terms
-          .replace(/[—–]/g, '--')
-          // Replace ampersands with word "and"
-          .replace(/&/g, 'and')
-          // Replace parentheses content but keep separation
-          .replace(/[()]/g, ' ')
-          // Replace forward slashes with hyphens
-          .replace(/\//g, '-')
-          // Normalize whitespace to single spaces
-          .replace(/\s+/g, ' ')
-          // Replace spaces with hyphens
-          .replace(/\s/g, '-')
-          // Remove any remaining special characters except hyphens
-          .replace(/[^\w-]/g, '')
-          // Replace multiple consecutive hyphens with single hyphen
-          .replace(/-+/g, '-')
-          // Remove leading/trailing hyphens
-          .replace(/^-+|-+$/g, '');
+          .replace(/[—–]/g, '--')           // em/en dashes to double hyphen
+          .replace(/&/g, 'and')              // ampersands to 'and'
+          .replace(/[()]/g, ' ')             // remove parentheses (replace with space)
+          .replace(/\//g, '-')               // forward slashes to hyphen
+          .replace(/\s+/g, ' ')              // normalize whitespace
+          .replace(/\s/g, '-')               // spaces to hyphens
+          .replace(/[^\w-]/g, '')            // remove special chars except hyphens
+          .replace(/-+/g, '-')               // collapse multiple hyphens
+          .replace(/^-+|-+$/g, '');          // trim hyphens
+        
+        // Handle duplicates
+        let uniqueSlug = slug;
+        let count = 0;
+        while (this.seen[uniqueSlug]) {
+          count++;
+          uniqueSlug = `${slug}-${count}`;
+        }
+        this.seen[uniqueSlug] = true;
+        return uniqueSlug;
       }
-    }
-    
+    };
+
     const parser = new marked.Marked({
       gfm: true,
       breaks: false,
       headerIds: true,
-      mangle: false,
-      slugger: new CustomSlugger()
+      mangle: false
     });
+
+    // Inject custom slugger into the renderer
+    const originalHeadingRenderer = parser.renderer.heading;
+    parser.renderer.heading = function(token) {
+      const id = customSlugger.slug(token.text);
+      return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>\n`;
+    };
 
     const html = parser.parse(markdown);
     markdownTarget.innerHTML = DOMPurify.sanitize(html);
