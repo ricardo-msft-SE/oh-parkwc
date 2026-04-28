@@ -13,14 +13,18 @@ async function renderExecutivePage(config) {
     
     const parser = new marked.Marked({
       gfm: true,
-      breaks: false,
-      headerIds: true  // Let marked generate IDs first
+      breaks: false
     });
 
     const html = parser.parse(markdown);
-    markdownTarget.innerHTML = DOMPurify.sanitize(html);
     
-    // Post-process: fix IDs to match TOC links
+    // Sanitize first
+    const sanitizedHtml = DOMPurify.sanitize(html);
+    
+    // Set the HTML
+    markdownTarget.innerHTML = sanitizedHtml;
+    
+    // Post-process: add IDs to headings
     fixHeadingIds(markdownTarget);
 
     const quickTake = extractExecutiveSummary(markdown);
