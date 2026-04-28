@@ -11,8 +11,8 @@ async function renderExecutivePage(config) {
 
     const markdown = await response.text();
     
-    // Custom slug function that handles special characters consistently
-    const customSlugger = {
+    // Create a custom Slugger class with proper slug generation
+    class CustomSlugger extends marked.Slugger {
       slug(text) {
         return text
           .toLowerCase()
@@ -36,17 +36,15 @@ async function renderExecutivePage(config) {
           // Remove leading/trailing hyphens
           .replace(/^-+|-+$/g, '');
       }
-    };
+    }
     
     const parser = new marked.Marked({
       gfm: true,
       breaks: false,
       headerIds: true,
-      mangle: false
+      mangle: false,
+      slugger: new CustomSlugger()
     });
-    
-    // Set the custom slugger
-    parser.options.slugger = customSlugger;
 
     const html = parser.parse(markdown);
     markdownTarget.innerHTML = DOMPurify.sanitize(html);
