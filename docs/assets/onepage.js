@@ -125,7 +125,7 @@ function extractTimelineItems(roadmapSection) {
 }
 
 function extractBottomLineCost(costSection) {
-  const combinedHeaderMatch = costSection.match(/###\s+Combined Estimate/i);
+  const combinedHeaderMatch = costSection.match(/###\s+Shared Costs/i);
   if (combinedHeaderMatch) {
     const fromCombined = costSection.slice(combinedHeaderMatch.index);
     const nextHeader = fromCombined.search(/^###\s+/m);

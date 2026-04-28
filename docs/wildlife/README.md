@@ -379,7 +379,7 @@ UC2 — PDF Translation
 | Azure Monitor + App Insights | $30–$60 |
 | **Total** | **~$780–$1,460/month** |
 
-### Combined Estimate
+### Shared Costs Estimate
 
 | Scenario | Monthly Cost |
 |---|---|

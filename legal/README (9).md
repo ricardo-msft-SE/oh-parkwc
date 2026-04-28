@@ -348,7 +348,7 @@ Both use cases are deployed under a common Azure AI Foundry Hub within ODNR's Az
 | Azure Key Vault (shared) | ~$5 | ~$5 |
 | **UC2 Total** | **~$390–$965/month** | **~$410–$995/month** |
 
-### Combined Estimate
+### Shared Costs Estimate
 
 | Scenario | Monthly Cost |
 |---|---|

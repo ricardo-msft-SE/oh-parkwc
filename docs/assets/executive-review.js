@@ -254,7 +254,7 @@ function extractCostData(costSection) {
     { key: "Build Period", amount: findRowCost(costSection, "Build") || "See full brief" },
     { key: "UC1 Steady State", amount: findRowCost(costSection, "UC1") || "See full brief" },
     { key: "UC2 Steady State", amount: findRowCost(costSection, "UC2") || "See full brief" },
-    { key: "Combined", amount: findRowCost(costSection, "Combined") || (money[0] || "See full brief") }
+    { key: "Shared Costs", amount: findRowCost(costSection, "Shared Costs") || (money[0] || "See full brief") }
   ];
 
   const rows = costSection

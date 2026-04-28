@@ -157,7 +157,7 @@ The Division of Parks and Watercraft is pursuing two AI-enabled initiatives to m
 | Azure Maps | $50–$100 |
 | **Total** | **~$1,700–$2,800/month** |
 
-### Combined Platform Cost Estimate
+### Shared Costs Platform Cost Estimate
 
 | Scenario | Monthly Run Cost |
 |---|---|

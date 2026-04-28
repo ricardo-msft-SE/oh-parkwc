@@ -155,7 +155,7 @@ The Division of Oil & Gas Resources Management is pursuing two AI-enabled initia
 | Azure Monitor + App Insights | $50–$100 |
 | **UC2 Total** | **~$850–$1,700/month** |
 
-### Combined Estimate
+### Shared Costs Estimate
 
 | Scenario | Monthly Cost |
 |---|---|

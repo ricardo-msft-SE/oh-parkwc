@@ -150,7 +150,7 @@ The Division of Wildlife is implementing two AI-enabled initiatives focused on r
 | Azure Monitor + App Insights | $30–$60 |
 | **UC2 Total** | **~$780–$1,460/month** |
 
-### Combined Estimate
+### Shared Costs Estimate
 
 | Scenario | Monthly Cost |
 |---|---|

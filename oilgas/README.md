@@ -370,7 +370,7 @@ UC2       ████  ████████  ██████████
 | Azure Monitor + App Insights | $50–$100 | $50–$100 |
 | **UC2 Total** | **~$1,000–$2,050/month** | **~$850–$1,700/month** |
 
-### Combined Estimate
+### Shared Costs Estimate
 
 | Scenario | Monthly Cost |
 |---|---|

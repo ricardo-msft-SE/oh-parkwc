@@ -93,7 +93,7 @@ function extractExecutiveSummary(markdown) {
 
 function extractCostSummary(markdown) {
   const lines = markdown.split(/\r?\n/);
-  const combinedRow = lines.find((line) => /Combined Estimate/i.test(line));
+  const combinedRow = lines.find((line) => /Shared Costs/i.test(line));
   if (!combinedRow) {
     return "";
   }
@@ -103,5 +103,5 @@ function extractCostSummary(markdown) {
     return "";
   }
 
-  return `Bottom-line combined estimate: ${moneyRanges.join(" | ")}`;
+  return `Bottom-line shared costs estimate: ${moneyRanges.join(" | ")}`;
 }
