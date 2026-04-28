@@ -325,7 +325,7 @@ UC2 — PDF Translation
 
 ---
 
-## Success Metrics & KPIs
+## Success Metrics & KPIs — [Learn More](../METRICS-METHODOLOGY.md)
 
 ### UC1 — Process Automation
 

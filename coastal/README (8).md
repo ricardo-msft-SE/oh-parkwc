@@ -281,7 +281,7 @@ Both use cases are deployed under a common Azure AI Foundry Hub within the agenc
 
 ---
 
-## Success Metrics & KPIs
+## Success Metrics & KPIs — [Learn More](../docs/METRICS-METHODOLOGY.md)
 
 | Metric | Baseline | Target |
 |---|---|---|

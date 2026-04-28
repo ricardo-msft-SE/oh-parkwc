@@ -305,7 +305,7 @@ Both use cases are deployed under a common Azure AI Foundry Hub within ODNR's Az
 
 ---
 
-## Success Metrics & KPIs
+## Success Metrics & KPIs — [Learn More](../METRICS-METHODOLOGY.md)
 
 | Metric | Baseline | Target |
 |---|---|---|
